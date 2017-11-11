@@ -12,27 +12,32 @@
 <body>
     <div class="container">
         <div class="jumbotron text-center">
-            <h1><span class="glyphicon glyphicon-fire"></span> Hot Restaurant</h1>
+            <h1>
+                <span class="glyphicon glyphicon-fire"></span> Hot Restaurant</h1>
             <hr>
             <h2>Current Reservations and Waiting List</h2>
             <br>
             <a href="/reservation">
-                <button id="add-btn" type="button" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-plus"></span>Make Reservation</button>
+                <button id="add-btn" type="button" class="btn btn-danger btn-lg">
+                    <span class="glyphicon glyphicon-plus"></span>Make Reservation</button>
             </a>
-            <a href="/"><span><button id="home-btn" type="button" class="btn btn-white btn-lg"><span class="glyphicon glyphicon-home"></span></button></span>
+            <a href="/">
+                <span>
+                    <button id="home-btn" type="button" class="btn btn-white btn-lg">
+                        <span class="glyphicon glyphicon-home"></span>
+                    </button>
+                </span>
             </a>
         </div>
         <div class="row">
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><strong>Character Statistics</strong></h3>
+                        <h3 class="panel-title">
+                            <strong>Character Statistics</strong>
+                        </h3>
                     </div>
-                    <div class="panel-body">
-                        <div class="well">
-                            <h2><span class="label label-primary">1</span>
-                            <span id="user">User</span></h2>
-                        </div>
+                    <div id="wells" class="panel-body">
                     </div>
                 </div>
             </div>
@@ -50,5 +55,24 @@
     </div>
     </div>
 </body>
+<script>
+
+    $.get("/api/table", function (data) {
+        console.log(data[0].uniqueId);
+        for (var i = 1; i < 6; i++) {
+                var html =
+                    "<div class='well'> <h2><span class='label label-primary'>" + i + "</span> <span class='user'>" + data[i].uniqueId + "</span></h2> </div>"
+
+                $("#wells").append(html);
+        }
+        for (var i = 6; i < data.length; i++) {
+            var html =
+                "<div class='well'> <h2><span class='label label-primary'>" + i + "</span> <span class='user'>" + data[i].uniqueId + "</span></h2> </div>"
+
+                $("#waitlistsection").append(html);
+        }
+    });
+
+</script>
 
 </html>
