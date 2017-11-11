@@ -32,18 +32,14 @@ app.get("/", function(req, res) {
 
 app.post("/reservation", function(req, res) {
     var newReservation = req.body;
-
-    console.log(newReservation);
-  
-    user.push(newReservation);
-  
+    
     res.json(newReservation);
 
-    if (user.length > 5) {
-        waitlist.push(newReservation);
+    if (user.length < 5) {
+        user.push(newReservation);
+    } else {
+      waitlist.push(newReservation);
     }
-
-    console.log(waitlist);
 
   });
 

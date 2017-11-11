@@ -58,18 +58,21 @@
 <script>
 
     $.get("/api/table", function (data) {
-        console.log(data[0].uniqueId);
-        for (var i = 1; i < 6; i++) {
-                var html =
-                    "<div class='well'> <h2><span class='label label-primary'>" + i + "</span> <span class='user'>" + data[i].uniqueId + "</span></h2> </div>"
-
-                $("#wells").append(html);
-        }
-        for (var i = 6; i < data.length; i++) {
+        for (var i = 0; i < 5; i++) {
             var html =
-                "<div class='well'> <h2><span class='label label-primary'>" + i + "</span> <span class='user'>" + data[i].uniqueId + "</span></h2> </div>"
+                "<div class='well'> <h2><span class='label label-primary'>" + (i + 1) + "</span> <span class='user'>" + data[i].uniqueId + "</span></h2> </div>"
+
+            $("#wells").append(html);
+        }
+    });
+    $.get("/api/waitlist", function (data) {
+        if (data) {
+            for (var i = 0; i < data.length; i++) {
+                var html =
+                    "<div class='well'> <h2><span class='label label-primary'>" + (i + 1) + "</span> <span class='user'>" + data[i].uniqueId + "</span></h2></div>"
 
                 $("#waitlistsection").append(html);
+            }
         }
     });
 
