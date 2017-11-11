@@ -69,17 +69,18 @@
 
   <script type="text/javascript">
     // Question: What does this code do?
-    $("#add-btn").on("click", function(event) {
+    $("#submit").on("click", function(event) {
       event.preventDefault();
-      var newResrvation = {
+      var newReservation = {
         name: $("#name").val().trim(),
-        email: $("#email").val().trim(),
+        email: $("#email").val(),
         phoneNumber: $("#phone-number").val().trim(),
         uniqueId: $("#unique-id").val().trim()
       };
 
+      console.log(newReservation);
       // Question: What does this code do??
-      $.post("/api/new", newReservation)
+      $.post("/reservation", newReservation)
       .done(function(data) {
         console.log(data);
         alert("Adding reservation...");
