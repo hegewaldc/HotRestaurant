@@ -8,7 +8,8 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-var user =[];
+var user = [];
+var waitlist = [];
 
 app.get("/", function(req, res) {
     res.sendFile(path.join(__dirname, "index.html"));
@@ -21,24 +22,28 @@ app.get("/", function(req, res) {
   app.get("/reservation", function(req, res) {
     res.sendFile(path.join(__dirname, "reservation.html"));
   });
-  app.get("/all", function(req, res) {
+  app.get("/api/table", function(req, res) {
     res.json(user);
+  });
+  app.get("/api/waitlist", function(req, res) {
+    res.json(waitlist);
   });
 
 
 app.post("/reservation", function(req, res) {
     var newReservation = req.body;
 
-    //newReservation.uniqueId;
-    // newcharacter.routeName = newcharacter.name.replace(/\s+/g, "").toLowerCase();
-  
-    // console.log(newcharacter);
-
     console.log(newReservation);
   
     user.push(newReservation);
   
     res.json(newReservation);
+
+    if (user.length > 5) {
+        waitlist.push(newReservation);
+    }
+
+    console.log(waitlist);
 
   });
 
